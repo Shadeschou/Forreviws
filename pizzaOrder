@@ -60,61 +60,60 @@ public class PizzaOrdering {
 
 
         switch (order) {
-            case 1: {
+            case 1:
                 pizza = "1. Margarita: Tomato, cheese";
                 priceForPizza = 60;
                 break;
-            }
-            case 2: {
+
+            case 2:
                 pizza = "2. Hawaii: Tomato, cheese, ham, pineapple";
                 priceForPizza = 75;
                 break;
-            }
-            case 3: {
+
+            case 3:
                 pizza = "3. Italiano: Tomato, cheese, pepperoni";
                 priceForPizza = 70;
                 break;
-            }
-            case 4: {
+
+            case 4:
                 pizza = "4. Poppy: Tomato, Cheese, Pepperoni, Bacon";
                 priceForPizza = 80;
                 break;
-            }
-            case 5: {
+
+            case 5:
                 pizza = "5. Genesis: Tomato, Cheese, Bacon, Mushrooms";
                 priceForPizza = 75;
                 break;
-            }
-            case 6: {
+
+            case 6:
                 pizza = "6. Copenhagen: Tomato, Kebab, Bacon, Salad";
                 priceForPizza = 80;
                 break;
-            }
-            case 7: {
+
+            case 7:
                 pizza = "7. Amsterdam: Tomato, Sausage, Cheddar Cheese";
                 priceForPizza = 75;
                 break;
-            }
-            case 8: {
+
+            case 8:
                 pizza = "8. MeatLover: Tomato, Cheese, Kebab, Sausage, Bacon, Bearnaise";
                 priceForPizza = 80;
                 break;
-            }
-            case 9: {
+
+            case 9:
                 pizza = "9. Glostrup Special: Tomato, cheese, Mushrooms, feta, kebab";
                 priceForPizza = 80;
                 break;
-            }
-            case 10: {
+
+            case 10:
                 pizza = "10. Special Tomato anchovies, crab Price";
                 priceForPizza = 80;
                 break;
-            }
-            default: {
+
+            default:
                 pizza = "no pizza picked";
                 priceForPizza = 80;
-                break;
-            }
+
         }
     }
 
@@ -137,25 +136,25 @@ public class PizzaOrdering {
         } while (sizePicked < 1 || sizePicked > 4);
 
         switch (sizePicked) {
-            case 1: {
+            case 1:
                 priceForSize = 0.75;
                 size = "child size ";
                 break;
-            }
-            case 2: {
+
+            case 2:
                 priceForSize = 1;
                 size = "normal size ";
                 break;
-            }
-            case 3: {
+
+            case 3:
                 priceForSize = 1.5;
                 size = "Family size ";
                 break;
-            }
-            default: {
+
+            default:
                 priceForSize = 1;
                 break;
-            }
+
         }
     }
 
@@ -164,7 +163,6 @@ public class PizzaOrdering {
         Scanner in = new Scanner(System.in);
         int toppingPicked = 0;
         final int PRICEFORTOPPINGS = 5;
-        boolean isToppingsPicked = false;
 
         System.out.print("If you want you can choose an additional topping each cost 5 DKK\n" +
                 "1. extra cheese\n" +
@@ -185,36 +183,31 @@ public class PizzaOrdering {
         switch (toppingPicked) {
             case 1: {
                 topping = "extra cheese";
-                isToppingsPicked = true;
                 break;
             }
             case 2: {
                 topping = "extra bacon";
-                isToppingsPicked = true;
                 break;
             }
-            case 3: {
+            case 3:
                 topping = "extra chili";
-                isToppingsPicked = true;
                 break;
-            }
-            case 4: {
+
+            case 4:
                 topping = "extra dressing";
-                isToppingsPicked = true;
                 break;
-            }
-            case 5: {
+
+            case 5:
                 topping = "no extra toppings";
-                isToppingsPicked = false;
                 break;
-            }
-            default: {
+
+            default:
                 topping = "no toppings was picked";
-                isToppingsPicked = false;
                 break;
-            }
+
         }
-        if (isToppingsPicked) {
+
+        if (toppingPicked > 0 && toppingPicked < 5) {
             priceForPizza += PRICEFORTOPPINGS;
         }
     }

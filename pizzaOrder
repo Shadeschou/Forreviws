@@ -1,0 +1,194 @@
+package OrderingPizza;
+
+import java.util.Scanner;
+
+public class PizzaOrdering {
+    //Variables
+
+    static double totalPizzaPrice;
+    static double priceForPizza;
+    static double priceForSize;
+    static String name;
+    static String pizza;
+    static String topping;
+
+    public static void main(String[] args) {
+        welcome();
+        whichPizza();
+        choosePizzaSize();
+        extraToppings();
+        calcPrice();
+    }
+
+    public static void welcome() {
+        name = "My friend";
+        Scanner in = new Scanner(System.in);
+        System.out.println("Hello Welcome to Kasper's pizzeria! whats your name my friend?");
+        if (in.hasNext()) {
+            name = in.next();
+        } else {
+            System.out.println("that isn't a name!");
+        }
+        System.out.println("Welcome " + name);
+    }
+
+    public static void whichPizza() {
+        int order = 0;
+        pizza = "No Pizza";
+        Scanner in = new Scanner(System.in);
+        System.out.println("What pizza do you wanna order?");
+        System.out.println("1. Margheritha: Tomato, cheese. Price DKK 60");
+        System.out.println("2. Hawaii: Tomato, cheese, ham, pineapple. Price DKK 75.-");
+        System.out.println("3. Italiano: Tomato, cheese, pepperoni. Price DKK 70.-");
+        System.out.println("4. Poppy: Tomato, Cheese, Pepperoni, Bacon. Price DKK 80.-");
+        System.out.println("5. Genesis: Tomato, Cheese, Bacon, Mushrooms. Price DKK 75.-");
+        System.out.println("6. Copenhagen: Tomato, Kebab, Bacon, Salad. Price DKK 80.-");
+        System.out.println("7. Amsterdam: Tomato, Sausage, Cheddar Cheese. Price DKK 75.-");
+        System.out.println("8. MeatLover: Tomato, Cheese, Kebab, Sausage, Bacon, Bearnaise. Price DKK 80.- ");
+        System.out.println("9. Glostrup Special: Tomato, cheese, Mushrooms, feta, kebab. Price DKK 80.- ");
+        System.out.println("10. Special Tomato anchovies, crab Price. DKK 80");
+        do {
+            System.out.println("type a number between 1 and 10 to choose a pizza");
+            if (in.hasNextInt()) {
+                order = in.nextInt();
+            } else {
+                System.out.println("The number is not in the range");
+                in.next();
+            }
+        } while (order == 0 || order > 11);
+
+
+        switch (order) {
+            case 1: {
+                pizza = "1. Margheritha: Tomato, cheese";
+                priceForPizza = 60;
+                break;
+            }
+            case 2: {
+                pizza = "2. Hawaii: Tomato, cheese, ham, pineapple";
+                priceForPizza = 75;
+                break;
+            }
+            case 3: {
+                pizza = "3. Italiano: Tomato, cheese, pepperoni";
+                priceForPizza = 70;
+                break;
+            }
+            case 4: {
+                pizza = "4. Poppy: Tomato, Cheese, Pepperoni, Bacon";
+                priceForPizza = 80;
+                break;
+            }
+            case 5: {
+                pizza = "5. Genesis: Tomato, Cheese, Bacon, Mushrooms";
+                priceForPizza = 75;
+                break;
+            }
+            case 6: {
+                pizza = "6. Copenhagen: Tomato, Kebab, Bacon, Salad";
+                priceForPizza = 80;
+                break;
+            }
+            case 7: {
+                pizza = "7. Amsterdam: Tomato, Sausage, Cheddar Cheese";
+                priceForPizza = 75;
+                break;
+            }
+            case 8: {
+                pizza = "8. MeatLover: Tomato, Cheese, Kebab, Sausage, Bacon, Bearnaise";
+                priceForPizza = 80;
+                break;
+            }
+            case 9: {
+                pizza = "9. Glostrup Special: Tomato, cheese, Mushrooms, feta, kebab";
+                priceForPizza = 80;
+                break;
+            }
+            case 10: {
+                pizza = "10. Special Tomato anchovies, crab Price";
+                priceForPizza = 80;
+                break;
+            }
+        }
+    }
+
+    public static void choosePizzaSize() {
+        Scanner in = new Scanner(System.in);
+        int sizePicked = 0;
+        System.out.println("Pick your size!");
+        System.out.println("You can pick between child, normal and family size");
+        System.out.println("1. Child size cost 75% of the normal price");
+        System.out.println("2. Norma size is the full price of the pizza");
+        System.out.println("3. Family size cost 150% more");
+        do {
+            System.out.println("type in a number between 1-3 to choose a pizza size");
+            if (in.hasNextInt()) {
+                sizePicked = in.nextInt();
+            } else {
+                System.out.println("The number is not in the range");
+                in.next();
+            }
+        } while (sizePicked == 0 || sizePicked > 4);
+
+        switch (sizePicked) {
+            case 1: {
+                priceForSize = 0.75;
+            }
+            case 2: {
+                priceForSize = 1;
+            }
+            case 3: {
+                priceForSize = 1.5;
+            }
+        }
+    }
+
+    public static void extraToppings() {
+        Scanner in = new Scanner(System.in);
+        int toppingPicked = 0;
+        System.out.println("If you want you can choose an additional topping each cost 5 DKK");
+        System.out.println("1. extra cheese");
+        System.out.println("2. Bacon");
+        System.out.println("3. chili");
+        System.out.println("4. dressing");
+        System.out.println("5. no extra topping");
+        do {
+            System.out.println("type in a number between 1-4 to choose a topping or type 5 for no extra topping");
+            if (in.hasNextInt()) {
+                toppingPicked = in.nextInt();
+            } else {
+                System.out.println("The number is not in the range");
+                in.next();
+            }
+        } while (toppingPicked == 0 || toppingPicked > 6);
+
+        switch (toppingPicked) {
+            case 1: {
+                topping = "extra cheese";
+                priceForPizza += 5;
+            }
+            case 2: {
+                topping = "extra bacon";
+                priceForPizza += 5;
+            }
+            case 3: {
+                topping = "extra chili";
+                priceForPizza += 5;
+            }
+            case 4: {
+                topping = "extra dressing";
+                priceForPizza += 5;
+            }
+            case 5: {
+                topping = "no extra toppings";
+            }
+        }
+    }
+
+    public static void calcPrice() {
+        totalPizzaPrice = priceForPizza * priceForSize;
+        System.out.println("Thank you for ordering at Kasper's pizzaeria here is your order " + name);
+        System.out.println("You have ordered the following " + pizza + " with " + topping);
+        System.out.println("total price for your order is : " + totalPizzaPrice + " DKK");
+    }
+}

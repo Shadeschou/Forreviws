@@ -3,21 +3,22 @@ package OrderingPizza;
 import java.util.Scanner;
 
 public class PizzaOrdering {
-    //Variables
 
+    //Variables
     static double totalPizzaPrice;
     static double priceForPizza;
     static double priceForSize;
+    static String size;
     static String name;
     static String pizza;
     static String topping;
 
     public static void main(String[] args) {
         welcome();
-        whichPizza();
+        choosePizza();
         choosePizzaSize();
-        extraToppings();
-        calcPrice();
+        chooseExtraToppings();
+        printReceipt();
     }
 
     public static void welcome() {
@@ -32,21 +33,20 @@ public class PizzaOrdering {
         System.out.println("Welcome " + name);
     }
 
-    public static void whichPizza() {
+    public static void choosePizza() {
         int order = 0;
         pizza = "No Pizza";
         Scanner in = new Scanner(System.in);
-        System.out.println("What pizza do you wanna order?");
-        System.out.println("1. Margheritha: Tomato, cheese. Price DKK 60");
-        System.out.println("2. Hawaii: Tomato, cheese, ham, pineapple. Price DKK 75.-");
-        System.out.println("3. Italiano: Tomato, cheese, pepperoni. Price DKK 70.-");
-        System.out.println("4. Poppy: Tomato, Cheese, Pepperoni, Bacon. Price DKK 80.-");
-        System.out.println("5. Genesis: Tomato, Cheese, Bacon, Mushrooms. Price DKK 75.-");
-        System.out.println("6. Copenhagen: Tomato, Kebab, Bacon, Salad. Price DKK 80.-");
-        System.out.println("7. Amsterdam: Tomato, Sausage, Cheddar Cheese. Price DKK 75.-");
-        System.out.println("8. MeatLover: Tomato, Cheese, Kebab, Sausage, Bacon, Bearnaise. Price DKK 80.- ");
-        System.out.println("9. Glostrup Special: Tomato, cheese, Mushrooms, feta, kebab. Price DKK 80.- ");
-        System.out.println("10. Special Tomato anchovies, crab Price. DKK 80");
+        System.out.print("What pizza do you wanna order? \n 1. Margheritha: Tomato, cheese. Price DKK 60 \n " +
+                "2. Hawaii: Tomato, cheese, ham, pineapple. Price DKK 75.-\n " +
+                "3. Italiano: Tomato, cheese, pepperoni. Price DKK 70.-\n" +
+                "4. Poppy: Tomato, Cheese, Pepperoni, Bacon. Price DKK 80.-\n" +
+                "5. Genesis: Tomato, Cheese, Bacon, Mushrooms. Price DKK 75.-\n" +
+                "6. Copenhagen: Tomato, Kebab, Bacon, Salad. Price DKK 80.-\n" +
+                "7. Amsterdam: Tomato, Sausage, Cheddar Cheese. Price DKK 75.-\n" +
+                "8. MeatLover: Tomato, Cheese, Kebab, Sausage, Bacon, Bearnaise. Price DKK 80.-\n" +
+                "9. Glostrup Special: Tomato, cheese, Mushrooms, feta, kebab. Price DKK 80.-\n" +
+                "10. Special Tomato anchovies, crab Price. DKK 80.-\n");
         do {
             System.out.println("type a number between 1 and 10 to choose a pizza");
             if (in.hasNextInt()) {
@@ -55,12 +55,13 @@ public class PizzaOrdering {
                 System.out.println("The number is not in the range");
                 in.next();
             }
-        } while (order == 0 || order > 11);
+
+        } while (order < 1 || order > 11);
 
 
         switch (order) {
             case 1: {
-                pizza = "1. Margheritha: Tomato, cheese";
+                pizza = "1. Margarita: Tomato, cheese";
                 priceForPizza = 60;
                 break;
             }
@@ -109,17 +110,21 @@ public class PizzaOrdering {
                 priceForPizza = 80;
                 break;
             }
+            default: {
+                pizza = "no pizza picked";
+                priceForPizza = 80;
+            }
         }
     }
 
     public static void choosePizzaSize() {
         Scanner in = new Scanner(System.in);
         int sizePicked = 0;
-        System.out.println("Pick your size!");
-        System.out.println("You can pick between child, normal and family size");
-        System.out.println("1. Child size cost 75% of the normal price");
-        System.out.println("2. Norma size is the full price of the pizza");
-        System.out.println("3. Family size cost 150% more");
+        System.out.print("Pick your size!\n" +
+                "You can pick between child, normal and family size\n" +
+                "1. Child size cost 75% of the normal price\n" +
+                "2. Normal size is the full price of the pizza\n" +
+                "3. Family size cost 50% more\n");
         do {
             System.out.println("type in a number between 1-3 to choose a pizza size");
             if (in.hasNextInt()) {
@@ -128,30 +133,44 @@ public class PizzaOrdering {
                 System.out.println("The number is not in the range");
                 in.next();
             }
-        } while (sizePicked == 0 || sizePicked > 4);
+        } while (sizePicked < 1 || sizePicked > 4);
 
         switch (sizePicked) {
             case 1: {
                 priceForSize = 0.75;
+                size = "child size ";
+                break;
             }
             case 2: {
                 priceForSize = 1;
+                size = "normal size ";
+                break;
             }
             case 3: {
                 priceForSize = 1.5;
+                size = "Family size ";
+                break;
+            }
+            default: {
+                priceForSize = 1;
+                break;
             }
         }
     }
 
-    public static void extraToppings() {
+    public static void chooseExtraToppings() {
+        //Local Variables
         Scanner in = new Scanner(System.in);
         int toppingPicked = 0;
-        System.out.println("If you want you can choose an additional topping each cost 5 DKK");
-        System.out.println("1. extra cheese");
-        System.out.println("2. Bacon");
-        System.out.println("3. chili");
-        System.out.println("4. dressing");
-        System.out.println("5. no extra topping");
+        final int PRICEFORTOPPINGS = 5;
+        boolean isToppingsPicked = false;
+
+        System.out.print("If you want you can choose an additional topping each cost 5 DKK\n" +
+                "1. extra cheese\n" +
+                "2. Bacon\n" +
+                "3. chili\n" +
+                "4. dressing\n" +
+                "5. no extra topping\n");
         do {
             System.out.println("type in a number between 1-4 to choose a topping or type 5 for no extra topping");
             if (in.hasNextInt()) {
@@ -160,35 +179,49 @@ public class PizzaOrdering {
                 System.out.println("The number is not in the range");
                 in.next();
             }
-        } while (toppingPicked == 0 || toppingPicked > 6);
+        } while (toppingPicked < 1 || toppingPicked > 6);
 
         switch (toppingPicked) {
             case 1: {
                 topping = "extra cheese";
-                priceForPizza += 5;
+                isToppingsPicked = true;
+                break;
             }
             case 2: {
                 topping = "extra bacon";
-                priceForPizza += 5;
+                isToppingsPicked = true;
+                break;
             }
             case 3: {
                 topping = "extra chili";
-                priceForPizza += 5;
+                isToppingsPicked = true;
+                break;
             }
             case 4: {
                 topping = "extra dressing";
-                priceForPizza += 5;
+                isToppingsPicked = true;
+                break;
             }
             case 5: {
                 topping = "no extra toppings";
+                isToppingsPicked = false;
+                break;
             }
+            default: {
+                topping = "no toppings was picked";
+                isToppingsPicked = false;
+                break;
+            }
+        }
+        if (isToppingsPicked) {
+            priceForPizza += PRICEFORTOPPINGS;
         }
     }
 
-    public static void calcPrice() {
+    public static void printReceipt() {
         totalPizzaPrice = priceForPizza * priceForSize;
-        System.out.println("Thank you for ordering at Kasper's pizzaeria here is your order " + name);
-        System.out.println("You have ordered the following " + pizza + " with " + topping);
-        System.out.println("total price for your order is : " + totalPizzaPrice + " DKK");
+        System.out.print("Thank you for ordering at Kasper's pizzaeria here is your order " + name
+                + "\nYou have ordered the following " + size + pizza + " with " + topping +
+                "\ntotal price for your order is : " + totalPizzaPrice + " DKK");
     }
 }

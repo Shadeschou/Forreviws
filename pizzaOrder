@@ -113,6 +113,7 @@ public class PizzaOrdering {
             default:
                 pizza = "no pizza picked";
                 priceForPizza = 80;
+                break;
 
         }
     }

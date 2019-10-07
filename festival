@@ -1,0 +1,28 @@
+DROP DATABASE IF  EXISTS rockfestival;
+CREATE DATABASE rockfestival;
+USE rockfestival;
+
+CREATE TABLE company (
+id INT PRIMARY KEY AUTO_INCREMENT,
+fldcompany_pricegroup VARCHAR(50) NOT NULL,
+fldcontact_person VARCHAR(50),
+fldphonenumber VARCHAR(15),
+fldticket_price INT
+);
+
+CREATE TABLE salesperson (
+salesperson_id INT PRIMARY KEY AUTO_INCREMENT,
+fldname VARCHAR(20)
+);
+
+CREATE TABLE ticket (
+ticket_id INT PRIMARY KEY AUTO_INCREMENT,
+fldphone_number VARCHAR(50),
+fldname VARCHAR(50),
+fldpriceGroup VARCHAR(50),
+fldticketamount int,
+salesperson_id INT,
+company_id INT,
+FOREIGN KEY (salesperson_id) REFERENCES salesperson(salesperson_id),
+FOREIGN KEY (company_id) REFERENCES company(id)
+);

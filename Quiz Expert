@@ -1,0 +1,97 @@
+package JavaQuiz;
+
+import java.util.Scanner;
+import java.util.Random;
+
+public class Main {
+
+    static int amountOfPlayers;
+    static String[] players = {"player 1", "player 2", "player 3", "player 4", "player 5", "player 6"};
+    static int[] playerPoints = {0, 0, 0, 0, 0, 0};
+
+    public static void main(String[] args) {
+        welcome();
+        quizGame();
+        showScore();
+
+    }
+
+    public static void welcome() {
+        Scanner in = new Scanner(System.in);
+        do {
+            System.out.println("How many players do you want to play 2-6?");
+            if (in.hasNextInt()) {
+                amountOfPlayers = in.nextInt();
+            } else {
+                System.out.println("The input doesn't match the required input");
+                in.next();
+            }
+
+        } while (amountOfPlayers < 2 || amountOfPlayers > 6);
+    }
+
+    public static void quizGame() {
+        Scanner in = new Scanner(System.in);
+        String[] questions = {"Is Java an object oriented Language?",
+                "Do you have to assign a datatype to variables?",
+                "Do you use Double in Java?",
+                "Is Java a multi platform language?",
+                "Is Java considered a high level Language?",
+                "Can you use Enums in java?",
+                "Can Loop do a variable range of iterations?",
+                "Do Java use a virtual machine to compile?",
+                "Float is bigger than double",
+                "Can you use ints for decimal numbers?"};
+        // uses int's to make it true or false, true has the value of 1 and false have the value of 0
+        int[] answers = {1, 1, 1, 1, 1, 1, 1, 1, 0, 0};
+
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < amountOfPlayers; j++) {
+                int questionAnswer = -1;
+                int randNumber = randomNumberGenerator();
+                System.out.println("It's your turn " + players[j]);
+                System.out.println(questions[randNumber]);
+                System.out.println("you got the following answers\n" +
+                        "0.False\n" +
+                        "1.True");
+                do {
+                    System.out.println("type a number between 0 and 1 to choose an answer");
+                    if (in.hasNextInt()) {
+                        questionAnswer = in.nextInt();
+                    } else {
+                        System.out.println("The input doesn't match the required input");
+                        in.next();
+                    }
+
+                } while (questionAnswer < 0 || questionAnswer > 1);
+
+                if (questionAnswer == answers[randNumber]) {
+                    System.out.println("Correct Answer");
+                    playerPoints[j]++;
+                } else {
+                    System.out.println("Wrong answer!");
+                }
+            }
+        }
+        System.out.println("--That's the end of the game!--");
+    }
+
+    public static int randomNumberGenerator() {
+        Random random = new Random();
+        int rand = 0;
+        while (true) {
+            rand = random.nextInt(10);
+            if (rand != 0)
+                break;
+
+        }
+        return rand;
+
+    }
+
+    public static void showScore() {
+        for (int i = 0; i < amountOfPlayers; i++) {
+            System.out.println(players[i] + " has the following points: " + playerPoints[i]);
+        }
+    }
+}

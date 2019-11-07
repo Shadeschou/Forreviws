@@ -28,6 +28,10 @@ public class Main {
             }
 
         } while (amountOfPlayers < 2 || amountOfPlayers > 6);
+        for (int i = 0; i < amountOfPlayers; i++) {
+            System.out.println("What's the name of " + players[i]);
+            players[i] = in.next();
+        }
     }
 
     public static void quizGame() {
@@ -43,19 +47,19 @@ public class Main {
                 "Float is bigger than double",
                 "Can you use ints for decimal numbers?"};
         // uses int's to make it true or false, true has the value of 1 and false have the value of 0
-        int[] answers = {1, 1, 1, 1, 1, 1, 1, 1, 0, 0};
+        Boolean[] answers = {true, true, true, true, true, true, true, true, false, false};
 
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < amountOfPlayers; j++) {
                 int questionAnswer = -1;
-                int randNumber = randomNumberGenerator();
+                int questionNumber = generateRandomNumber();
                 System.out.println("It's your turn " + players[j]);
-                System.out.println(questions[randNumber]);
+                System.out.println(questions[questionNumber]);
                 System.out.println("you got the following answers\n" +
                         "0.False\n" +
                         "1.True");
                 do {
-                    System.out.println("type a number between 0 and 1 to choose an answer");
+                    System.out.println("type either 0 or 1 to answer");
                     if (in.hasNextInt()) {
                         questionAnswer = in.nextInt();
                     } else {
@@ -65,7 +69,7 @@ public class Main {
 
                 } while (questionAnswer < 0 || questionAnswer > 1);
 
-                if (questionAnswer == answers[randNumber]) {
+                if (convertToBool(questionAnswer) == answers[questionNumber]) {
                     System.out.println("Correct Answer");
                     playerPoints[j]++;
                 } else {
@@ -76,17 +80,25 @@ public class Main {
         System.out.println("--That's the end of the game!--");
     }
 
-    public static int randomNumberGenerator() {
+    public static int generateRandomNumber() {
         Random random = new Random();
         int rand = 0;
         while (true) {
             rand = random.nextInt(10);
-            if (rand != 0)
+            if (rand != 0) {
                 break;
-
+            }
         }
         return rand;
 
+    }
+
+    public static boolean convertToBool(int answer) {
+        if (answer == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static void showScore() {
